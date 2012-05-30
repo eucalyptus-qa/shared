@@ -329,6 +329,8 @@ def read_test_config(filename='../input/2b_tested.lst'):
         - subnet_ip,   internal_subnet  (string)
         - managed_ips, external_ips     (list of strings)
         - bzr_branch,  bzr_branch_uri   (string)
+        - git_url                       (string)
+        - git_branch                    (string)
         - branch                        (shortname of branch)
         - memo                          (list of strings, one per memo line)
         - hosts                         (list of RemoteHosts)
@@ -392,6 +394,12 @@ def read_test_config(filename='../input/2b_tested.lst'):
                 config['bzr_revision'] = line.strip().split(None, 1)[1]
                 config['revision']     = line.strip().split(None, 1)[1]
                 config['revno']        = line.strip().split(None, 1)[1]
+            elif line.lower().startswitch('git_repo'):
+                if foo.find("#") != -1:
+                    (config['git_url'], config['git_branch']) = line.strip().split(None, 1)[1].split("#")
+                else:
+                    config['git_url'] = line.strip().split(None, 1)[1]
+                    config['git_branch'] = "master"
     return config
 
 def read_inputs(filename='input.txt'):
