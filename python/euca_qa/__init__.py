@@ -82,7 +82,6 @@ class RemoteClient(object):
                  
         return [ channel.recv_exit_status(), out, err ]
         
-        
     def putfile(self, src, dest):
         return self.sftpclient.put(src, dest)
 
@@ -394,8 +393,8 @@ def read_test_config(filename='../input/2b_tested.lst'):
                 config['bzr_revision'] = line.strip().split(None, 1)[1]
                 config['revision']     = line.strip().split(None, 1)[1]
                 config['revno']        = line.strip().split(None, 1)[1]
-            elif line.lower().startswitch('git_repo'):
-                if foo.find("#") != -1:
+            elif line.lower().startswith('git_repo'):
+                if line.find("#") != -1:
                     (config['git_url'], config['git_branch']) = line.strip().split(None, 1)[1].split("#")
                 else:
                     config['git_url'] = line.strip().split(None, 1)[1]
